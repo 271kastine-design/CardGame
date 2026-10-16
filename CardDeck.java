@@ -2,10 +2,9 @@
 // CardDeck.java           by Dale/Joyce/Weems                 Chapter 6
 //
 // Models a deck of cards. Includes shuffling and dealing.
-//----------------------------------------------------------------------import java.util.Random;
-import java.util.Iterator;
+//----------------------------------------------------------------------
 import java.util.Random;
-import javax.swing.ImageIcon;
+import java.util.Iterator;
 
 public class CardDeck
 {
@@ -17,13 +16,9 @@ public class CardDeck
   public CardDeck()
   {
     deck = new ABList<Card>(NUMCARDS);
-    ImageIcon image;
     for (Card.Suit suit : Card.Suit.values())
        for (Card.Rank rank : Card.Rank.values())
-       {
-         image = new ImageIcon(suit + "_" + rank + "_RA.gif");     
-         deck.add(new Card(rank, suit, image));
-       }
+         deck.add(new Card(rank, suit));
     deal = deck.iterator();
   }
 
