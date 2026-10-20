@@ -12,6 +12,7 @@ public class CardDeck
   
   protected ABList<Card> deck;
   protected Iterator<Card> deal;
+  protected int cardsDealt;
   
   public CardDeck()
   {
@@ -20,6 +21,7 @@ public class CardDeck
        for (Card.Rank rank : Card.Rank.values())
          deck.add(new Card(rank, suit));
     deal = deck.iterator();
+    cardsDealt = 0;
   }
 
   public void shuffle()
@@ -32,13 +34,14 @@ public class CardDeck
     
     for (int i = (NUMCARDS - 1); i > 0; i--)
     {
-      randLoc = rand.nextInt(i);  // random integer between 0 and i - 1
+      randLoc = rand.nextInt(i + 1);  // random integer between 0 and i
       temp = deck.get(randLoc);
       deck.set(randLoc, deck.get(i));
       deck.set(i, temp);
     }
     
     deal = deck.iterator();
+    cardsDealt = 0;
   }
   
   public boolean hasNextCard()
@@ -47,12 +50,19 @@ public class CardDeck
   {
     return (deal.hasNext());
   }
+
+  public int cardsRemaining()
+  // Returns the number of cards that have not yet been dealt.
+  {
+    return NUMCARDS - cardsDealt;
+  }
   
   public Card nextCard()
   // Precondition:  this.hasNextCard() == true
   //
   // Returns the next card for the current 'deal'.
   {
+    cardsDealt++;
     return deal.next();
   }
 }
